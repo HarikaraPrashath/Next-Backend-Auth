@@ -11,9 +11,21 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser()); // Middleware to parse cookies
 
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://next-front-auth.vercel.app"
+];
+
 app.use(
  cors({
-	 origin:`${process.env.CLIENT_URL}`,
+	 origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
 	 methods:["POST","GET","PUT","DELETE"],
 	 allowedHeaders: ["Content-Type"],
 	 credentials:true
