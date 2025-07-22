@@ -13,7 +13,7 @@ app.use(cookieParser()); // Middleware to parse cookies
 
 app.use(
  cors({
-	 origin:"https://next-front-auth.vercel.app",
+	 origin:`${process.env.CLIENT_URL}`,
 	 methods:["POST","GET","PUT","DELETE"],
 	 allowedHeaders: ["Content-Type"],
 	 credentials:true
